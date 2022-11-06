@@ -4,11 +4,11 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 export default function Navbar() {
   return (
-    <div className="flex top-15 p-2 " id="nav">
-      <div className="flex top-16 w-56 text-right">
+    <div className="flex top-15 p-2 items-center" id="nav">
+      <div className="flex top-16 mr-4 text-right">
         <Menu as="div" className="relative inline-block text-left">
           <div>
-            <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black bg-opacity-20 px-4 py-2.5 text-sm font-bold text-black hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+            <Menu.Button className="inline-flex w-fit justify-center rounded-md border-2 border-gray-200 bg-white bg-opacity-20 px-4 py-1.5 text-sm font-bold text-black hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
               Currency
               <ChevronDownIcon
                 className="ml-2 -mr-1 h-5 w-5 text-black-900 hover:text-violet-100"
@@ -57,7 +57,7 @@ export default function Navbar() {
       <form>
           <label
             htmlFor="default-search"
-            className=" mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
+            className=" mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300 "
           >
             Search
           </label>
@@ -82,13 +82,13 @@ export default function Navbar() {
             <input
               type="search"
               id="default-search"
-              className="p-4 pl-10 w-full h-10 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="p-4 pl-10 w-full h-10 text-sm text-gray-900 bg-gray-50 rounded-lg border-2 border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search by Coin"
               required=""
             />
             <button
               type="submit"
-              className="text-white h-8 absolute  right-1.5 bottom-1 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="text-white h-8 absolute right-1 bottom-1 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Search
             </button>
