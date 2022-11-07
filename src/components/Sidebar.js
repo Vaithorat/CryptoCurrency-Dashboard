@@ -21,12 +21,12 @@ const Sidebar = () => {
 
   const filteredCoins = coins.filter((coin) => coin.name.toLowerCase());
   return (
-    <>
-      <h1 className="pt-5 ml-2 text-4xl font-bold">
+    <div className="flex-col border-2 rounded-lg mx-4 mt-4 flex">
+      <h1 className="pt-5 ml-2 text-4xl font-bold ">
         Cryptocurrency prices by market cap
       </h1>
       <table>
-        <tbody className="">
+        <tbody className="flex-col flex">
           {filteredCoins.map((coin) => {
             return (
               <Coin
@@ -40,7 +40,7 @@ const Sidebar = () => {
           })}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 

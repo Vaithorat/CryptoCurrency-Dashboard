@@ -3,7 +3,7 @@ import {TiArrowSortedDown, TiArrowSortedUp} from "react-icons/ti"
 
 const Coin = ({ name, marketcap, image, priceChange }) => {
   return (
-    <div className=" flex justify-center ">
+    <div className=" flex justify-center border-2-gray-500">
       <div className="flex justify-between w-full mx-4 items-center h-full border-b-2 border-gray-200 w-80% ">
         <div className="flex items-center pr-6 min-w-min h-20 ">
           <img src={image} alt="crypto" className="h-8 w-fit px-2  " />
