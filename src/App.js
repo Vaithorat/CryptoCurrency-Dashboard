@@ -1,5 +1,3 @@
-// import { Chart } from "react-chartjs-2";
-import { Chart } from "react-chartjs-2";
 import "./App.css";
 import Exchange from "./components/Exchange";
 import Graph from "./components/Graph";
@@ -18,7 +16,9 @@ function App() {
           <Exchange />
         </div>
       </div>
+      <div className="flex flex-col w-full h-screen">
         <Sidebar />
+      </div>
     </div>
   );
 }
