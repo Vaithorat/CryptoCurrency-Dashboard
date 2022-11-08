@@ -10,7 +10,7 @@ function App() {
     <div id="App" className="flex ">
       <div id="main" className = "col-span-3 ">
         <Navbar />
-        <Graph/>
+        {/* <Graph/> */}
         <div id="container" className="flex w-full pr-2">
           <Portfolio />
           <Exchange />
