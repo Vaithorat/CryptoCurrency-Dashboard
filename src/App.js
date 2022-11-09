@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <Header/>
-    <div id="App" className="flex ">
+    <div id="App" className="flex overflow-hidden">
       <div id="main" className = "col-span-3 ">
         <Navbar />
         <Graph/>

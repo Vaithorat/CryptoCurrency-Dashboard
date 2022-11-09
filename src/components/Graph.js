@@ -7,6 +7,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { BsFillCalendarWeekFill } from "react-icons/bs";
 import Select from "react-select";
 import { CoinList } from "../APIs/api";
+import { Multiselect } from "multiselect-react-dropdown";
 
 export function Spinner() {
   return (
@@ -24,20 +25,28 @@ const Graph = () => {
     const { data } = await axios.get(HistoricalChart(id, days));
     setChart(data);
   };
-const [currency, setCurrency] = useState("USD");
-const handleChange = (e) => {
-  setCurrency(e.target.value);}
-  
-  const options = [{ value: "Bitcoin", label: "bitcoin" },
-  {value: "Etherium", label: "etherium"}];
-  
+  const [currency, setCurrency] = useState("USD");
+  var handleChange = (e) => {
+    setCurrency(e.target.value);
+  };
+  const [chartType, setChartType] = useState("Line Chart");
+  var handleChange = (e) => {
+    setChartType(e.target.value);
+  };
+  const data = [
+    { value: "Bitcoin", label: "bitcoin", id: 1 },
+    { value: "Etherium", label: "etherium", id: 2 },
+    { value: "Dogecoin", label: "dogecoin", id: 3 },
+  ];
+  const [options] = useState(data);
   useEffect(() => {
     fetchChart();
   }, [id, days]);
   // console.log("chart", chart);
+
   return (
-    <div className="px-8 w-fit" id="main-graph">
-      <div className=" justify-center gap-24 flex w-full items-center ">
+    <div className="px-8 w-full" id="main-graph">
+      <div className=" justify-center gap-10 flex w-full items-center ">
         <button
           value={1}
           className="flex items-center hover:shadow-xl hover:border-b-2 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
@@ -71,21 +80,30 @@ const handleChange = (e) => {
         <button className="flex items-center hover:shadow-xl hover:border-b-2 hover:border-blue-700 rounded-lg  text-black w-fit p-1">
           <BsFillCalendarWeekFill />
         </button>
-        <Select options={options} />
+
+        <Multiselect
+          className="rounded-lg hover:shadow-xl"
+          showCheckbox
+          placeholder="Select Cryptocurrency"
+          options={options}
+          displayValue="value"
+          
+        />
+
         <div className="flex items-center ml-8">
-          <label htmlFor="currency" className="sr-only">
+          <label htmlFor="chartType" className="sr-only">
             Chart Type
           </label>
           <select
-            id="currency"
-            name="currency"
+            id="chartType"
+            name="chartType"
             onChange={handleChange}
-            value={currency}
+            value={chartType}
             className="bg-white w-fit h-10  text-sm font-semibold rounded-md"
           >
             <option value="line">Line Chart</option>
             <option value="bar-hor">Bar Chart Horizontal</option>
-            <option value="bar-ver">Bar Chart Vetical</option>
+            <option value="bar-ver">Bar Chart Vertical</option>
           </select>
         </div>
       </div>
@@ -124,7 +142,6 @@ const handleChange = (e) => {
               },
             }}
           />
-            
         </>
       )}
     </div>

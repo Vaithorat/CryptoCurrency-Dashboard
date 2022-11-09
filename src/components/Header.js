@@ -1,13 +1,13 @@
-import React from 'react'
+import React from "react";
 
 const Header = () => {
   return (
-    <div className='w-full h-fit shadow-lg '>
-    <div className='w-24 mx-10 py-2 flex '>
-      <img src="./logoAlma.png" alt="" />
+    <div className="w-full shadow-lg">
+      <div className="w-20 mx-10 py-2 flex ">
+        <img src="./logoAlma.png" alt="" />
+      </div>
     </div>
-    </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
