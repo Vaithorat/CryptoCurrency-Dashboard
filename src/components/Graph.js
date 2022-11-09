@@ -5,7 +5,6 @@ import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import ClipLoader from "react-spinners/ClipLoader";
 import { BsFillCalendarWeekFill } from "react-icons/bs";
-import Select from "react-select";
 import { CoinList } from "../APIs/api";
 import { Multiselect } from "multiselect-react-dropdown";
 
@@ -43,31 +42,21 @@ const Graph = () => {
     fetchChart();
   }, [id, days]);
   // console.log("chart", chart);
-function oneDay(){
-  setDays(
-    prevDays => 1
-  )
-}
-function oneWeek(){
-  setDays(
-    prevDays => 7
-  )
-}
-function oneMonth(){
-  setDays(
-    prevDays=>30
-  )
-}
-function sixMonths(){
-  setDays(
-    prevDays=>180
-  )
-}
-function oneYear(){
-  setDays(
-    prevDays=>365
-  )
-}
+  function oneDay() {
+    setDays((prevDays) => 1);
+  }
+  function oneWeek() {
+    setDays((prevDays) => 7);
+  }
+  function oneMonth() {
+    setDays((prevDays) => 30);
+  }
+  function sixMonths() {
+    setDays((prevDays) => 180);
+  }
+  function oneYear() {
+    setDays((prevDays) => 365);
+  }
   return (
     <div className="px-8 w-full" id="main-graph">
       <div className=" justify-center gap-10 flex w-full items-center ">
@@ -101,7 +90,7 @@ function oneYear(){
         </button>
         <button
           value={365}
-        onClick={oneYear}
+          onClick={oneYear}
           className="flex items-center hover:shadow-xl hover:border-b-2 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
         >
           1 Year
@@ -116,7 +105,6 @@ function oneYear(){
           placeholder="Select Cryptocurrency"
           options={options}
           displayValue="value"
-          
         />
 
         <div className="flex items-center ml-8">
@@ -164,6 +152,7 @@ function oneYear(){
               ],
             }}
             options={{
+              responsive:true,
               elements: {
                 point: {
                   radius: 1,
