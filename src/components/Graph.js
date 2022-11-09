@@ -20,7 +20,7 @@ export function Spinner() {
 const Graph = () => {
   const [id, setId] = useState("bitcoin");
   const [chart, setChart] = useState();
-  const [days, setDays] = useState(30);
+  const [days, setDays] = useState(1);
   const fetchChart = async () => {
     const { data } = await axios.get(HistoricalChart(id, days));
     setChart(data);
@@ -43,36 +43,65 @@ const Graph = () => {
     fetchChart();
   }, [id, days]);
   // console.log("chart", chart);
-
+function oneDay(){
+  setDays(
+    prevDays => 1
+  )
+}
+function oneWeek(){
+  setDays(
+    prevDays => 7
+  )
+}
+function oneMonth(){
+  setDays(
+    prevDays=>30
+  )
+}
+function sixMonths(){
+  setDays(
+    prevDays=>180
+  )
+}
+function oneYear(){
+  setDays(
+    prevDays=>365
+  )
+}
   return (
     <div className="px-8 w-full" id="main-graph">
       <div className=" justify-center gap-10 flex w-full items-center ">
         <button
           value={1}
           className="flex items-center hover:shadow-xl hover:border-b-2 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
+          onClick={oneDay}
         >
           1 Day
         </button>
         <button
           value={7}
+          onClick={oneWeek}
           className="flex items-center hover:shadow-xl hover:border-b-2 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
         >
           1 Week
         </button>
         <button
           value={30}
+          onClick={oneMonth}
           className="flex items-center hover:shadow-xl hover:border-b-2 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
         >
           1 Month
         </button>
         <button
           value={6}
+          onClick={sixMonths}
           className="flex items-center hover:shadow-xl hover:border-b-2 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
         >
           6 Months
         </button>
         <button
           value={365}
+        onClick={oneYear}
           className="flex items-center hover:shadow-xl hover:border-b-2 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
         >
           1 Year
@@ -119,7 +148,7 @@ const Graph = () => {
                 let time =
                   date.getHours() > 12
                     ? `${date.getHours() - 12}:${date.getMinutes()} PM`
-                    : `${date.getHours()}:${date.getMinutes} AM`;
+                    : `${date.getHours()}:${date.getMinutes()} AM`;
 
                 return days === 1 ? time : date.toLocaleDateString();
               }),
