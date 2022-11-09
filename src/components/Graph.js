@@ -19,7 +19,7 @@ const Graph = () => {
   const [days, setDays] = useState(30);
   const fetchChart = async () => {
     const { data } = await axios.get(HistoricalChart(id, days));
-    setChart(data.prices);
+    setChart(data);
   };
   useEffect(() => {
     fetchChart();
@@ -34,14 +34,32 @@ const Graph = () => {
           <Line
             datasetIdKey="id"
             data={{
-              labels: chart?.map((chartMap) => {
+              labels: chart.prices?.map((chartMap) => {
                 let date = new Date(chartMap[0]);
                 let time =
                   date.getHours() > 12
                     ? `${date.getHours() - 12}:${date.getMinutes()} PM`
                     : `${date.getHours()}:${date.getMinutes} AM`;
-                return date.toLocaleDateString();
+                    
+                return days===1? time :date.toLocaleDateString();
               }),
+              datasets: [
+                {
+                  id: 1,
+                  borderColor:"red",
+                  label: `Price (Past ${days} Days) in USD`,
+                  data: chart.prices.map((chartMap) => {
+                    return chartMap[1]
+                  })
+                }
+              ]
+            }}
+            options={{
+              elements:{
+                point:{
+                  radius:1,
+                }
+              }
             }}
           />
         </>
