@@ -2,11 +2,9 @@ import React from "react";
 
 const Exchange = () => {
   return (
-    <div className="border-2 p-2 ml-4 w-full rounded-lg flex-col flex items-center">
+    <div id="exchange" className="border-2 h-fit p-2 ml-4 w-full rounded-lg flex-col flex items-center">
       <div>
-      
-
-      <div id="exchange" className="text-lg font-bold p-2 flex justify-center">Exchange Coins</div>
+      <div  className="text-lg font-bold p-t2 flex justify-center">Exchange Coins</div>
       <div id="container" className="flex items-center p-2">
         <div id="sell">Sell</div>
         <div>
@@ -35,7 +33,7 @@ const Exchange = () => {
         </div>
         <input type="text" className="rounded ml-2 h-1/2 w-full" />
       </div>
-      <div id="container" className="flex items-center mt-2 p-2">
+      <div id="container" className="flex items-center mt-1 p-2">
         <div id="sell">Buy</div>
         <div>
           <div className="flex items-center ml-8">

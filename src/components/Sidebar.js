@@ -22,7 +22,7 @@ const Sidebar = () => {
 
   const filteredCoins = coins.filter((coin) => coin.name.toLowerCase());
   return (
-    <div className="flex-col border-2 rounded-lg mx-4 mt-4 flex overflow-y-scroll">
+    <div className="flex-col border-2 rounded-lg mx-4 mt-4 flex overflow-y-scroll" id="sidebar">
       <h1 className="pt-5 ml-6 text-4xl font-bold z-10">
         Cryptocurrency prices by market cap
       </h1>

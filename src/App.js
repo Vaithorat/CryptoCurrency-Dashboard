@@ -1,12 +1,15 @@
 import "./App.css";
 import Exchange from "./components/Exchange";
 import Graph from "./components/Graph";
+import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import Portfolio from "./components/Portfolio";
 import Sidebar from "./components/Sidebar";
 
 function App() {
   return (
+    <>
+      <Header/>
     <div id="App" className="flex ">
       <div id="main" className = "col-span-3 ">
         <Navbar />
@@ -20,6 +23,7 @@ function App() {
         <Sidebar />
       </div>
     </div>
+    </>
   );
 }
 

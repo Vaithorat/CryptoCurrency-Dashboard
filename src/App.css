@@ -4,6 +4,7 @@
 
 *{
     margin: 0;padding: 0;
+    overflow:none;
 }
 
 #default-search{
@@ -15,4 +16,11 @@ width: 60vw;
 }
 #top{
     margin-left: 2rem;
+}
+#sidebar{
+    height: 94.5vh;
+    width: fit-content;
+}
+#exchange{
+    height: 21vh;
 }
