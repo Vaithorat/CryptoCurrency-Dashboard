@@ -24,7 +24,6 @@ export const data = {
   ],
 };
 const options = {
-  responsive: true,
   plugins: {
     legend: {
       display: true,
@@ -34,11 +33,11 @@ const options = {
 };
 const Portfolio = () => {
   return (
-    <div className="w-full border-2 l-2 rounded-lg p-2 h-fit" id="top">
+    <div className="w-full border-2 l-2 rounded-lg p-2" id="top">
       <div className="flex justify-between">
         <div id="portfolio">Portfolio</div>
         <div>
-          <Pie data={data} options={{options}} />
+          <Pie data={data} options={options} />
         </div>
         <div>Total Value <strong>$1000</strong></div>
       </div>

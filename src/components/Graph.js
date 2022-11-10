@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { HistoricalChart } from "../APIs/api";
-import { Line } from "react-chartjs-2";
+import { Bar, Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import ClipLoader from "react-spinners/ClipLoader";
 import { BsFillCalendarWeekFill } from "react-icons/bs";
@@ -24,14 +24,16 @@ const Graph = () => {
     const { data } = await axios.get(HistoricalChart(id, days));
     setChart(data);
   };
+
   const [currency, setCurrency] = useState("USD");
-  var handleChange = (e) => {
+  const handleChange = (e) => {
     setCurrency(e.target.value);
   };
-  const [chartType, setChartType] = useState("Line Chart");
-  var handleChange = (e) => {
+  const [chartType, setChartType] = useState("Line");
+  const handleChart = (e) => {
     setChartType(e.target.value);
   };
+
   const data = [
     { value: "Bitcoin", label: "bitcoin", id: 1 },
     { value: "Etherium", label: "etherium", id: 2 },
@@ -114,13 +116,13 @@ const Graph = () => {
           <select
             id="chartType"
             name="chartType"
-            onChange={handleChange}
+            onChange={handleChart}
             value={chartType}
             className="bg-white w-fit h-10  text-sm font-semibold rounded-md"
           >
-            <option value="line">Line Chart</option>
-            <option value="bar-hor">Bar Chart Horizontal</option>
-            <option value="bar-ver">Bar Chart Vertical</option>
+            <option value="Line">Line Chart</option>
+            <option value="Bar">Bar Chart Horizontal</option>
+            <option value="BarVer">Bar Chart Vertical</option>
           </select>
         </div>
       </div>
@@ -128,38 +130,107 @@ const Graph = () => {
         <Spinner />
       ) : (
         <>
-          <Line
-            datasetIdKey="id"
-            data={{
-              labels: chart.prices?.map((chartMap) => {
-                let date = new Date(chartMap[0]);
-                let time =
-                  date.getHours() > 12
-                    ? `${date.getHours() - 12}:${date.getMinutes()} PM`
-                    : `${date.getHours()}:${date.getMinutes()} AM`;
+          {chartType === "Line" ? (
+            <Line
+              datasetIdKey="id"
+              data={{
+                labels: chart.prices?.map((chartMap) => {
+                  let date = new Date(chartMap[0]);
+                  let time = `${date.getHours()}:${date.getMinutes()}`;
 
-                return days === 1 ? time : date.toLocaleDateString();
-              }),
-              datasets: [
-                {
-                  id: 1,
-                  borderColor: "red",
-                  label: `Price of Past ${days} Days in USD`,
-                  data: chart.prices.map((chartMap) => {
-                    return chartMap[1];
-                  }),
+                  return days === 1 ? time : date.toLocaleDateString();
+                }),
+                datasets: [
+                  {
+                    id: 1,
+                    borderColor: "red",
+                    label: `Price during Past ${days} ${
+                      days !== 1 ? "Days" : "Day"
+                    } in USD`,
+                    data: chart.prices.map((chartMap) => {
+                      return chartMap[1];
+                    }),
+                  },
+                ],
+              }}
+              options={{
+                maintainAspectRatio: true,
+                responsive: true,
+                elements: {
+                  point: {
+                    radius: 1,
+                  },
                 },
-              ],
-            }}
-            options={{
-              responsive:true,
-              elements: {
-                point: {
-                  radius: 1,
+              }}
+            />
+          ) : chartType === "Bar" ? (
+            <Bar
+              datasetIdKey="id"
+              data={{
+                labels: chart.prices?.map((chartMap) => {
+                  let date = new Date(chartMap[0]);
+                  let time = `${date.getHours()}:${date.getMinutes()}`;
+
+                  return days === 1 ? time : date.toLocaleDateString();
+                }),
+                datasets: [
+                  {
+                    id: 1,
+                    borderColor: "red",
+                    label: `Price during Past ${days} ${
+                      days !== 1 ? "Days" : "Day"
+                    } in USD`,
+                    data: chart.prices.map((chartMap) => {
+                      return chartMap[1];
+                    }),
+                  },
+                ],
+              }}
+              options={{
+                indexAxis: "y",
+                maintainAspectRatio: true,
+                responsive: true,
+                elements: {
+                  bar: {
+                    borderWidth: 2,
+                  },
                 },
-              },
-            }}
-          />
+              }}
+            />
+          ) : (
+            <Bar
+              datasetIdKey="id"
+              data={{
+                labels: chart.prices?.map((chartMap) => {
+                  let date = new Date(chartMap[0]);
+                  let time = `${date.getHours()}:${date.getMinutes()}`;
+
+                  return days === 1 ? time : date.toLocaleDateString();
+                }),
+                datasets: [
+                  {
+                    id: 1,
+                    borderColor: "red",
+                    label: `Price during Past ${days} ${
+                      days !== 1 ? "Days" : "Day"
+                    } in USD`,
+                    data: chart.prices.map((chartMap) => {
+                      return chartMap[1];
+                    }),
+                  },
+                ],
+              }}
+              options={{
+                maintainAspectRatio: true,
+                responsive: true,
+                elements: {
+                  bar: {
+                    borderWidth: 4,
+                  },
+                },
+              }}
+            />
+          )}
         </>
       )}
     </div>

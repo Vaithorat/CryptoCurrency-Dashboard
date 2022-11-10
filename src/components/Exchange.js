@@ -24,7 +24,7 @@ const Exchange = () => {
                   value="coin-sell"
                   className="hover:bg-gray-100 hello rounded-lg"
                 >
-                  Etherium
+                  Ethereum
                 </option>
                 <option value="coin-sell">Bitcoin</option>
               </select>
