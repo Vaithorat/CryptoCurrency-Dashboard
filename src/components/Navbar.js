@@ -8,6 +8,7 @@ export default function Navbar() {
   const handleChange = (e) => {
     setCurrency(e.target.value);
   };
+  // console.log(currency)
   return (
     <>
       <div className="flex justify-between pb-4 pt-5">
@@ -20,7 +21,7 @@ export default function Navbar() {
             name="currency"
             onChange={handleChange}
             value={currency}
-            className="bg-white w-24 h-10  text-sm font-semibold rounded-md"
+            className="bg-white w-24 h-10  text-sm font-semibold rounded-md mr-2"
           >
             <option value="USD" className="hover:bg-gray-100 hello">
               USD
@@ -56,13 +57,13 @@ export default function Navbar() {
           <input
             type="search"
             id="default-search"
-            className="p-4 ml-2 pl-10 w-full h-10 text-sm text-gray-900 bg-gray-50 rounded-lg border-2 border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="p-4 pl-10 w-full h-10 text-sm text-gray-900 bg-gray-50 rounded-lg border-2 border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search by Coin"
             required=""
           />
           <button
             type="submit"
-            className="text-white h-8 absolute right-1 bottom-1 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-white h-8 absolute right-1 bottom-1 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm px-4 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Search
           </button>

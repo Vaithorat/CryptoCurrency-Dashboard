@@ -19,7 +19,7 @@ function App() {
           <Exchange />
         </div>
       </div>
-      <div className="flex flex-col w-full h-screen">
+      <div className="flex flex-col w-full h-75">
         <Sidebar />
       </div>
     </div>

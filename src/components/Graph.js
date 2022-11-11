@@ -7,6 +7,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { BsFillCalendarWeekFill } from "react-icons/bs";
 import { CoinList } from "../APIs/api";
 import { Multiselect } from "multiselect-react-dropdown";
+import Navbar from "./Navbar";
 
 export function Spinner() {
   return (
@@ -17,32 +18,67 @@ export function Spinner() {
 }
 
 const Graph = () => {
-  const [id, setId] = useState("bitcoin");
+  const labelData = [
+    { value: `Bitcoin`, label: `bitcoin`, id: 1 },
+    { value: "Ethereum", label: "ethereum", id: 2 },
+    { value: "XRP", label: "ripple", id: 3 },
+    { value: "Solana", label: "solana", id: 4 },
+    { value: "BNB", label: "binancecoin", id: 5 },
+    { value: "Dogecoin", label: "dogecoin", id: 6 },
+    { value: "Cardano", label: "cardano", id: 7 },
+    { value: "Chainlink", label: "chainlink", id: 8 },
+    { value: "Polkadot", label: "polkadot", id: 9 },
+    { value: "Avalanche", label: "avalanche-2", id: 10 },
+    { value: "Monero", label: "monero", id: 11 },
+    { value: "Tron", label: "tron", id: 12 },
+    { value: "Litecoin", label: "litecoin", id: 13 },
+    { value: "Algorand", label: "algorand", id: 14 },
+    { value: "Cosmos Hub", label: "cosmos", id: 15 },
+  ];
+  const [options, setOptions] = useState(labelData);
+  const handleOptions = (e) => {
+    setOptions(e.target.value);
+  };
+  console.log("options", options[0].label);
+  const [id, setId] = useState(options[0].label);
   const [chart, setChart] = useState();
   const [days, setDays] = useState(1);
+  const [coinList, setCoinList] = useState([]);
+
   const fetchChart = async () => {
     const { data } = await axios.get(HistoricalChart(id, days));
     setChart(data);
   };
+  // console.log("chart:" ,chart);
+  useEffect(() => {
+    fetchChart();
+  }, [id, days]);
+  const [post, setPost] = useState([]);
+  useEffect(() => {
+    axios.get(CoinList()).then((response) => {
+      setPost(response.data);
+    });
+  }, []);
+  // console.log("post", [post][0][0]);
 
-  const [currency, setCurrency] = useState("USD");
-  const handleChange = (e) => {
-    setCurrency(e.target.value);
-  };
+  // const [currency, setCurrency] = useState("USD");
+  // const handleChange = (e) => {
+  //   setCurrency(e.target.value);
+  // };
+  // console.log(currency);
   const [chartType, setChartType] = useState("Line");
   const handleChart = (e) => {
     setChartType(e.target.value);
   };
+  // console.log("chart", chartType);
 
-  const data = [
-    { value: "Bitcoin", label: "bitcoin", id: 1 },
-    { value: "Etherium", label: "etherium", id: 2 },
-    { value: "Dogecoin", label: "dogecoin", id: 3 },
-  ];
-  const [options] = useState(data);
-  useEffect(() => {
-    fetchChart();
-  }, [id, days]);
+  const styles = {
+    multiselectContainer: { width: "15vw", borderRadius: "20px" },
+    inputField: { width: "14vw", borderRadius: "10px", border: "none" },
+    searchBox: { border: "none" },
+  };
+
+  // useEffect(() => {}, []);
   // console.log("chart", chart);
   function oneDay() {
     setDays((prevDays) => 1);
@@ -59,8 +95,9 @@ const Graph = () => {
   function oneYear() {
     setDays((prevDays) => 365);
   }
+
   return (
-    <div className="px-8 w-full" id="main-graph">
+    <div className="px-8 w-full " id="main-graph">
       <div className=" justify-center gap-10 flex w-full items-center ">
         <button
           value={1}
@@ -104,9 +141,11 @@ const Graph = () => {
         <Multiselect
           className="rounded-lg hover:shadow-xl"
           showCheckbox
+          selectionLimit={2}
           placeholder="Select Cryptocurrency"
           options={options}
           displayValue="value"
+          style={styles}
         />
 
         <div className="flex items-center ml-8">
@@ -129,9 +168,11 @@ const Graph = () => {
       {!chart ? (
         <Spinner />
       ) : (
-        <>
+        <div className="relative w-full h-full">
           {chartType === "Line" ? (
             <Line
+         
+            height={500}
               datasetIdKey="id"
               data={{
                 labels: chart.prices?.map((chartMap) => {
@@ -148,14 +189,14 @@ const Graph = () => {
                       days !== 1 ? "Days" : "Day"
                     } in USD`,
                     data: chart.prices.map((chartMap) => {
-                      return chartMap[1];
+                      return chartMap[options[0].id];
                     }),
                   },
                 ],
               }}
               options={{
-                maintainAspectRatio: true,
-                responsive: true,
+                maintainAspectRatio: false,
+                responsive:true,
                 elements: {
                   point: {
                     radius: 1,
@@ -165,6 +206,8 @@ const Graph = () => {
             />
           ) : chartType === "Bar" ? (
             <Bar
+            
+            height={500}
               datasetIdKey="id"
               data={{
                 labels: chart.prices?.map((chartMap) => {
@@ -188,17 +231,18 @@ const Graph = () => {
               }}
               options={{
                 indexAxis: "y",
-                maintainAspectRatio: true,
+                maintainAspectRatio: false,
                 responsive: true,
                 elements: {
                   bar: {
-                    borderWidth: 2,
+                    borderWidth: 1,
                   },
                 },
               }}
             />
-          ) : (
+          ) : chartType === "BarVer" ? (
             <Bar
+            height={500}
               datasetIdKey="id"
               data={{
                 labels: chart.prices?.map((chartMap) => {
@@ -221,8 +265,8 @@ const Graph = () => {
                 ],
               }}
               options={{
-                maintainAspectRatio: true,
-                responsive: true,
+                maintainAspectRatio: false,
+                responsive:true,
                 elements: {
                   bar: {
                     borderWidth: 4,
@@ -230,8 +274,10 @@ const Graph = () => {
                 },
               }}
             />
+          ) : (
+            <div />
           )}
-        </>
+        </div>
       )}
     </div>
   );

@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "chart.js": "^3.9.1",
     "chartjs": "^0.3.24",
+    "cors": "^2.8.5",
     "flowbite": "^1.5.3",
     "flowbite-react": "^0.3.3",
     "multiselect-react-dropdown": "^2.0.25",
