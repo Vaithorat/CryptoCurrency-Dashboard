@@ -14,7 +14,7 @@ function App() {
       <div id="main" className = "col-span-3 ">
         <Navbar />
         <Graph/>
-        <div id="container" className="flex w-full pr-2">
+        <div id="container" className="flex w-full pt-2 pr-2">
           <Portfolio />
           <Exchange />
         </div>

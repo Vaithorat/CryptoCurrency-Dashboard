@@ -95,7 +95,10 @@ const Graph = () => {
   function oneYear() {
     setDays((prevDays) => 365);
   }
-
+  const decimation = {
+    enabled: false,
+    algorithm: "min-max",
+  };
   return (
     <div className="px-8 w-full " id="main-graph">
       <div className=" justify-center gap-10 flex w-full items-center ">
@@ -171,8 +174,7 @@ const Graph = () => {
         <div className="relative w-full h-full">
           {chartType === "Line" ? (
             <Line
-         
-            height={500}
+              height={500}
               datasetIdKey="id"
               data={{
                 labels: chart.prices?.map((chartMap) => {
@@ -195,8 +197,21 @@ const Graph = () => {
                 ],
               }}
               options={{
+                plugins: {
+                  decimation: decimation,
+                },
+                scales: {
+                  x: {
+                    ticks: {
+                      source:"auto",
+                      autoSkip: true,
+                      maxTicksLimit: 10,
+                      maxRotation:0
+                    },
+                  },
+                },
                 maintainAspectRatio: false,
-                responsive:true,
+                responsive: true,
                 elements: {
                   point: {
                     radius: 1,
@@ -206,8 +221,7 @@ const Graph = () => {
             />
           ) : chartType === "Bar" ? (
             <Bar
-            
-            height={500}
+              height={500}
               datasetIdKey="id"
               data={{
                 labels: chart.prices?.map((chartMap) => {
@@ -230,6 +244,19 @@ const Graph = () => {
                 ],
               }}
               options={{
+                plugins: {
+                  decimation: decimation,
+                },
+                scales: {
+                  y: {
+                    ticks: {
+                      source:"auto",
+                      autoSkip: true,
+                      maxTicksLimit: 10,
+                      maxRotation:0
+                    },
+                  },
+                },
                 indexAxis: "y",
                 maintainAspectRatio: false,
                 responsive: true,
@@ -242,7 +269,7 @@ const Graph = () => {
             />
           ) : chartType === "BarVer" ? (
             <Bar
-            height={500}
+              height={500}
               datasetIdKey="id"
               data={{
                 labels: chart.prices?.map((chartMap) => {
@@ -265,8 +292,21 @@ const Graph = () => {
                 ],
               }}
               options={{
+                plugins: {
+                  decimation: decimation,
+                },
+                scales: {
+                  xAxis: {
+                    ticks: {
+                      source:"auto",
+                      autoSkip: true,
+                      maxTicksLimit: 10,
+                      maxRotation:0
+                    },
+                  },
+                },
                 maintainAspectRatio: false,
-                responsive:true,
+                responsive: true,
                 elements: {
                   bar: {
                     borderWidth: 4,
