@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default function CurrencyRow(props) {
+export default function Currency(props) {
   const {
-    currencyOptions,
+    exchangeOptions,
     selectedCurrency,
     onChangeCurrency,
     onChangeAmount,
@@ -11,7 +11,7 @@ export default function CurrencyRow(props) {
   return (
     <div className='flex justify-between items-center px-16 w-full gap-12 mt-8  '>
       <select value={selectedCurrency} onChange={onChangeCurrency} className="rounded-lg">
-        {currencyOptions.map(option => (
+        {exchangeOptions.map(option => (
             <option key={option} value={option}>{option}</option>
             ))}
       </select>
