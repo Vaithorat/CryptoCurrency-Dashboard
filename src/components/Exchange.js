@@ -54,6 +54,7 @@ function Exchange() {
     <div className="flex flex-col justify-center items-center border-2 ml-2 rounded-lg ">
       <h1 className="text-2xl font-bold">Exchange Currencies</h1>
       <Currency
+      value={1}
         exchangeOptions={exchangeOptions}
         selectedCurrency={baseCurrency}
         onChangeCurrency={(e) => setBaseCurrency(e.target.value)}
@@ -62,6 +63,7 @@ function Exchange() {
       />
 
       <Currency
+      value={2}
         exchangeOptions={exchangeOptions}
         selectedCurrency={newCurrency}
         onChangeCurrency={(e) => setNewCurrency(e.target.value)}

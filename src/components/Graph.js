@@ -18,7 +18,7 @@ export function Spinner() {
 }
 
 const Graph = () => {
-  const labelData = [
+  const options = [
     { value: `Bitcoin`, label: `bitcoin`, id: 1 },
     { value: "Ethereum", label: "ethereum", id: 2 },
     { value: "XRP", label: "ripple", id: 3 },
@@ -35,12 +35,16 @@ const Graph = () => {
     { value: "Algorand", label: "algorand", id: 14 },
     { value: "Cosmos Hub", label: "cosmos", id: 15 },
   ];
-  const [options, setOptions] = useState(labelData);
-  const handleOptions = (e) => {
-    setOptions(e.target.value);
-  };
-  console.log("options", options[0].label);
-  const [id, setId] = useState(options[0].label);
+  // const [options, setOptions] = useState(labelData);
+  // const handleOptions = (e) => {
+  //   setOptions(e.target.value);
+  // };
+  // console.log("options", options[0].label);
+  const [id, setId] = useState(options[0].id);
+  useEffect(() => {
+    setId(options[0].label);
+    console.log("id", options[0].label);
+  }, []);
   const [chart, setChart] = useState();
   const [days, setDays] = useState(1);
   const [coinList, setCoinList] = useState([]);
@@ -96,15 +100,16 @@ const Graph = () => {
     setDays((prevDays) => 365);
   }
   const decimation = {
-    enabled: false,
-    algorithm: "min-max",
+    enabled: true,
+    algorithm: "lttb",
+    samples: 10,
   };
   return (
     <div className="px-8 w-full " id="main-graph">
-      <div className=" justify-center gap-10 flex w-full items-center ">
+      <div className=" justify-center gap-10 flex w-full items-center  ">
         <button
           value={1}
-          className="flex items-center hover:shadow-xl hover:border-b-2 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
+          className="flex items-center hover:shadow-xl hover:border-b-2 transform transition-transform hover:scale-110 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
           onClick={oneDay}
         >
           1 Day
@@ -112,37 +117,37 @@ const Graph = () => {
         <button
           value={7}
           onClick={oneWeek}
-          className="flex items-center hover:shadow-xl hover:border-b-2 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
+          className="flex items-center hover:shadow-xl hover:border-b-2 transform transition-transform hover:scale-110 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
         >
           1 Week
         </button>
         <button
           value={30}
           onClick={oneMonth}
-          className="flex items-center hover:shadow-xl hover:border-b-2 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
+          className="flex items-center hover:shadow-xl hover:border-b-2 transform transition-transform hover:scale-110 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
         >
           1 Month
         </button>
         <button
           value={6}
           onClick={sixMonths}
-          className="flex items-center hover:shadow-xl hover:border-b-2 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
+          className="flex items-center hover:shadow-xl hover:border-b-2 transform transition-transform hover:scale-110 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
         >
           6 Months
         </button>
         <button
           value={365}
           onClick={oneYear}
-          className="flex items-center hover:shadow-xl hover:border-b-2 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
+          className="flex items-center hover:shadow-xl hover:border-b-2 transform transition-transform hover:scale-110 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
         >
           1 Year
         </button>
-        <button className="flex items-center hover:shadow-xl hover:border-b-2 hover:border-blue-700 rounded-lg  text-black w-fit p-1">
+        <button className="flex items-center hover:shadow-xl hover:border-b-2 transform transition-transform hover:scale-110 hover:border-blue-700 rounded-lg  text-black w-fit p-1">
           <BsFillCalendarWeekFill />
         </button>
 
         <Multiselect
-          className="rounded-lg hover:shadow-xl"
+          className="rounded-lg hover:shadow-xl "
           showCheckbox
           selectionLimit={2}
           placeholder="Select Cryptocurrency"
@@ -160,7 +165,7 @@ const Graph = () => {
             name="chartType"
             onChange={handleChart}
             value={chartType}
-            className="bg-white w-fit h-10  text-sm font-semibold rounded-md"
+            className="bg-white w-fit h-10  text-sm font-semibold rounded-md transform transition-transform hover:scale-105 hover:shadow-lg"
           >
             <option value="Line">Line Chart</option>
             <option value="Bar">Bar Chart Horizontal</option>
@@ -203,10 +208,11 @@ const Graph = () => {
                 scales: {
                   x: {
                     ticks: {
-                      source:"auto",
+                      source: "auto",
                       autoSkip: true,
-                      maxTicksLimit: 10,
-                      maxRotation:0
+                      suggestedMin: 10,
+                      suggestedMax: 20,
+                      maxRotation: 0,
                     },
                   },
                 },
@@ -238,7 +244,7 @@ const Graph = () => {
                       days !== 1 ? "Days" : "Day"
                     } in USD`,
                     data: chart.prices.map((chartMap) => {
-                      return chartMap[1];
+                      return chartMap[options[0].id];
                     }),
                   },
                 ],
@@ -250,10 +256,12 @@ const Graph = () => {
                 scales: {
                   y: {
                     ticks: {
-                      source:"auto",
+                      source: "auto",
                       autoSkip: true,
+                      suggestedMin: 5,
                       maxTicksLimit: 10,
-                      maxRotation:0
+                      suggestedMax: 10,
+                      maxRotation: 0,
                     },
                   },
                 },
@@ -286,7 +294,7 @@ const Graph = () => {
                       days !== 1 ? "Days" : "Day"
                     } in USD`,
                     data: chart.prices.map((chartMap) => {
-                      return chartMap[1];
+                      return chartMap[options[0].id];
                     }),
                   },
                 ],
@@ -298,10 +306,18 @@ const Graph = () => {
                 scales: {
                   xAxis: {
                     ticks: {
-                      source:"auto",
+                      source: "auto",
                       autoSkip: true,
-                      maxTicksLimit: 10,
-                      maxRotation:0
+                      suggestedMin: 10,
+                      suggestedMax: 20,
+                      maxRotation: 0,
+                    },
+                  },
+                  yAxis: {
+                    ticks: {
+                      autoSkip: true,
+                      suggestedMin: 10,
+                      suggestedMax: 20,
                     },
                   },
                 },

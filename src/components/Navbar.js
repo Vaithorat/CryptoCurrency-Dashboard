@@ -21,7 +21,7 @@ export default function Navbar() {
             name="currency"
             onChange={handleChange}
             value={currency}
-            className="bg-white w-24 h-10  text-sm font-semibold rounded-md mr-2"
+            className="bg-white w-24 h-10  text-sm font-semibold rounded-md mr-2 transform transition-transform hover:scale-105"
           >
             <option value="USD" className="hover:bg-gray-100 hello">
               USD
@@ -57,7 +57,7 @@ export default function Navbar() {
           <input
             type="search"
             id="default-search"
-            className="p-4 pl-10 w-full h-10 text-sm text-gray-900 bg-gray-50 rounded-lg border-2 border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="p-4 pl-10 w-full h-10 text-sm  text-gray-900 bg-gray-50 rounded-lg border-2 border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search by Coin"
             required=""
           />
