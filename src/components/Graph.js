@@ -35,19 +35,14 @@ const Graph = () => {
     { value: "Algorand", label: "algorand", id: 14 },
     { value: "Cosmos Hub", label: "cosmos", id: 15 },
   ];
-  // const [options, setOptions] = useState(labelData);
-  // const handleOptions = (e) => {
-  //   setOptions(e.target.value);
-  // };
-  // console.log("options", options[0].label);
-  const [id, setId] = useState(options[0].id);
-  useEffect(() => {
-    setId(options[0].label);
-    console.log("id", options[0].label);
-  }, []);
+  function onSelect(selectedList, selectedItem) {
+    // return (selectedItem.id);
+    setId(options[selectedItem.id].label)
+  }
+  const [id, setId] = useState(options[0].label);
+
   const [chart, setChart] = useState();
   const [days, setDays] = useState(1);
-  const [coinList, setCoinList] = useState([]);
 
   const fetchChart = async () => {
     const { data } = await axios.get(HistoricalChart(id, days));
@@ -63,7 +58,10 @@ const Graph = () => {
       setPost(response.data);
     });
   }, []);
-  // console.log("post", [post][0][0]);
+
+  const handleId = (e) => {
+    setId(Array.isArray(e) ? e.map((x) => x.value) : []);
+  };
 
   // const [currency, setCurrency] = useState("USD");
   // const handleChange = (e) => {
@@ -147,12 +145,16 @@ const Graph = () => {
         </button>
 
         <Multiselect
-          className="rounded-lg hover:shadow-xl "
+          className="rounded-lg hover:shadow-xl"
           showCheckbox
+          onSelect={onSelect}
           selectionLimit={2}
           placeholder="Select Cryptocurrency"
           options={options}
           displayValue="value"
+          avoidHighlightFirstOption={true}
+          value={options.filter((obj) => id.includes(obj.value))}
+          onChange={handleId}
           style={styles}
         />
 
@@ -258,9 +260,8 @@ const Graph = () => {
                     ticks: {
                       source: "auto",
                       autoSkip: true,
-                      suggestedMin: 5,
-                      maxTicksLimit: 10,
-                      suggestedMax: 10,
+                      suggestedMin: 10,
+                      suggestedMax: 20,
                       maxRotation: 0,
                     },
                   },
