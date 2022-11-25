@@ -1,14 +1,13 @@
 
 import { React, useState } from "react";
 
-// import { useDispatch, useSelector } from "react-redux";
 
 export default function Navbar() {
   const [currency, setCurrency] = useState("USD");
   const handleChange = (e) => {
     setCurrency(e.target.value);
   };
-  // console.log(currency)
+  // console.log("currency",currency)
   return (
     <>
       <div className="flex justify-between pb-4 pt-5">

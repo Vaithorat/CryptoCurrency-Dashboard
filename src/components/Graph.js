@@ -37,7 +37,7 @@ const Graph = () => {
   ];
   function onSelect(selectedList, selectedItem) {
     // return (selectedItem.id);
-    setId(options[selectedItem.id].label)
+    setId(options[selectedItem.id].label);
   }
   const [id, setId] = useState(options[0].label);
 
@@ -48,7 +48,6 @@ const Graph = () => {
     const { data } = await axios.get(HistoricalChart(id, days));
     setChart(data);
   };
-  // console.log("chart:" ,chart);
   useEffect(() => {
     fetchChart();
   }, [id, days]);
@@ -99,8 +98,7 @@ const Graph = () => {
   }
   const decimation = {
     enabled: true,
-    algorithm: "lttb",
-    samples: 10,
+    algorithm: "lttb ",
   };
   return (
     <div className="px-8 w-full " id="main-graph">
@@ -186,12 +184,13 @@ const Graph = () => {
               data={{
                 labels: chart.prices?.map((chartMap) => {
                   let date = new Date(chartMap[0]);
-                  let time = `${date.getHours()}:${date.getMinutes()}`;
-
+                  // let dateMonth = new Date(chartMap[0]).toLocaleDateString('en-us',{month:"short",year:'numeric'})
+                  let time = `${date.getHours()}:00`;
                   return days === 1 ? time : date.toLocaleDateString();
                 }),
                 datasets: [
                   {
+                    spanGaps:true,
                     id: 1,
                     borderColor: "red",
                     label: `Price during Past ${days} ${
@@ -204,17 +203,19 @@ const Graph = () => {
                 ],
               }}
               options={{
-                plugins: {
-                  decimation: decimation,
-                },
+                spanGaps:true,
                 scales: {
+                  y: {
+                    ticks: {
+                      source: "auto",
+                      autoSkip: false,
+                    },
+                  },
                   x: {
                     ticks: {
                       source: "auto",
-                      autoSkip: true,
-                      suggestedMin: 10,
-                      suggestedMax: 20,
-                      maxRotation: 0,
+                      autoSkip: false,
+                      // maxRotation: 0,
                     },
                   },
                 },
@@ -222,7 +223,7 @@ const Graph = () => {
                 responsive: true,
                 elements: {
                   point: {
-                    radius: 1,
+                    radius: 0,
                   },
                 },
               }}
@@ -234,7 +235,8 @@ const Graph = () => {
               data={{
                 labels: chart.prices?.map((chartMap) => {
                   let date = new Date(chartMap[0]);
-                  let time = `${date.getHours()}:${date.getMinutes()}`;
+
+                  let time = `${date.getHours()}:00`;
 
                   return days === 1 ? time : date.toLocaleDateString();
                 }),
@@ -248,20 +250,17 @@ const Graph = () => {
                     data: chart.prices.map((chartMap) => {
                       return chartMap[options[0].id];
                     }),
+                    barThickness: 1,
+                    // barPercentage:0.1,
                   },
                 ],
               }}
               options={{
-                plugins: {
-                  decimation: decimation,
-                },
                 scales: {
                   y: {
                     ticks: {
                       source: "auto",
                       autoSkip: true,
-                      suggestedMin: 10,
-                      suggestedMax: 20,
                       maxRotation: 0,
                     },
                   },
@@ -283,8 +282,7 @@ const Graph = () => {
               data={{
                 labels: chart.prices?.map((chartMap) => {
                   let date = new Date(chartMap[0]);
-                  let time = `${date.getHours()}:${date.getMinutes()}`;
-
+                  let time = `${date.getHours()}:00`;
                   return days === 1 ? time : date.toLocaleDateString();
                 }),
                 datasets: [
@@ -301,32 +299,21 @@ const Graph = () => {
                 ],
               }}
               options={{
-                plugins: {
-                  decimation: decimation,
-                },
                 scales: {
-                  xAxis: {
+                  y: {
                     ticks: {
                       source: "auto",
                       autoSkip: true,
-                      suggestedMin: 10,
-                      suggestedMax: 20,
                       maxRotation: 0,
                     },
                   },
-                  yAxis: {
-                    ticks: {
-                      autoSkip: true,
-                      suggestedMin: 10,
-                      suggestedMax: 20,
-                    },
-                  },
                 },
+                indexAxis: "x",
                 maintainAspectRatio: false,
                 responsive: true,
                 elements: {
                   bar: {
-                    borderWidth: 4,
+                    borderWidth: 1,
                   },
                 },
               }}
