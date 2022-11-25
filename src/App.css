@@ -1,7 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer utilities {
+    /* Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
 
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: 1; /* Firefox */
+    }
+}
 *{
     margin: 0;padding: 0;
 }
@@ -20,6 +30,7 @@ width: 60vw;
 #sidebar{
     height: 91.5vh;
     width: fit-content;
+    
 }
 #exchange{
     height: 28vh;
