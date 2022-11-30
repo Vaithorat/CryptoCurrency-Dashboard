@@ -7,7 +7,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { BsFillCalendarWeekFill } from "react-icons/bs";
 import { CoinList } from "../APIs/api";
 import { Multiselect } from "multiselect-react-dropdown";
-import Navbar from "./Navbar";
+import { CryptoState } from "../APIs/CryptoContext";
 
 export function Spinner() {
   return (
@@ -18,6 +18,7 @@ export function Spinner() {
 }
 
 const Graph = () => {
+  const { currency,setCurrency } = CryptoState();
   const options = [
     { value: `Bitcoin`, label: `bitcoin`, id: 1 },
     { value: "Ethereum", label: "ethereum", id: 2 },
@@ -44,13 +45,22 @@ const Graph = () => {
   const [chart, setChart] = useState();
   const [days, setDays] = useState(1);
 
+  // const [currency, setCurrency] = useState("USD");
+  const handleCurrency = (e) => {
+    setCurrency(e.target.value);
+  };
+  // useEffect(()=>{
+  //   handleCurrency();
+  // },[currency])
+  // console.log("currency", currency);
   const fetchChart = async () => {
-    const { data } = await axios.get(HistoricalChart(id, days));
+    const { data } = await axios.get(HistoricalChart(id, days, currency));
     setChart(data);
   };
   useEffect(() => {
     fetchChart();
-  }, [id, days]);
+  // eslint-disable-next-line 
+  }, [id, days, currency]);
   const [post, setPost] = useState([]);
   useEffect(() => {
     axios.get(CoinList()).then((response) => {
@@ -62,11 +72,6 @@ const Graph = () => {
     setId(Array.isArray(e) ? e.map((x) => x.value) : []);
   };
 
-  // const [currency, setCurrency] = useState("USD");
-  // const handleChange = (e) => {
-  //   setCurrency(e.target.value);
-  // };
-  // console.log(currency);
   const [chartType, setChartType] = useState("Line");
   const handleChart = (e) => {
     setChartType(e.target.value);
@@ -190,20 +195,20 @@ const Graph = () => {
                 }),
                 datasets: [
                   {
-                    spanGaps:true,
+                    spanGaps: true,
                     id: 1,
                     borderColor: "red",
                     label: `Price during Past ${days} ${
                       days !== 1 ? "Days" : "Day"
                     } in USD`,
                     data: chart.prices.map((chartMap) => {
-                      return chartMap[options[0].id];
+                      return chartMap[(options[0].id)];
                     }),
                   },
                 ],
               }}
               options={{
-                spanGaps:true,
+                spanGaps: true,
                 scales: {
                   y: {
                     ticks: {
@@ -288,7 +293,8 @@ const Graph = () => {
                 datasets: [
                   {
                     id: 1,
-                    borderColor: "red",
+                    // borderColor: "red",
+                    backgroundColor: "red",
                     label: `Price during Past ${days} ${
                       days !== 1 ? "Days" : "Day"
                     } in USD`,
