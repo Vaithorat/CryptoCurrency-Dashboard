@@ -9,6 +9,7 @@ import { CoinList } from "../APIs/api";
 import { Multiselect } from "multiselect-react-dropdown";
 import { CryptoState } from "../APIs/CryptoContext";
 
+//show spinner when content is not loaded
 export function Spinner() {
   return (
     <div style={{ width: "100px", margin: "auto", display: "block" }}>
@@ -19,6 +20,7 @@ export function Spinner() {
 
 const Graph = () => {
   const { currency,setCurrency } = CryptoState();
+  //list of currencies the graph is available for
   const options = [
     { value: `Bitcoin`, label: `bitcoin`, id: 1 },
     { value: "Ethereum", label: "ethereum", id: 2 },
@@ -41,18 +43,13 @@ const Graph = () => {
     setId(options[selectedItem.id].label);
   }
   const [id, setId] = useState(options[0].label);
-
+//show show
   const [chart, setChart] = useState();
+  //select days as 1 by default
   const [days, setDays] = useState(1);
+  //to select currency from dropdown
 
-  // const [currency, setCurrency] = useState("USD");
-  const handleCurrency = (e) => {
-    setCurrency(e.target.value);
-  };
-  // useEffect(()=>{
-  //   handleCurrency();
-  // },[currency])
-  // console.log("currency", currency);
+ //fetch chart from coingecko api
   const fetchChart = async () => {
     const { data } = await axios.get(HistoricalChart(id, days, currency));
     setChart(data);
@@ -61,17 +58,18 @@ const Graph = () => {
     fetchChart();
   // eslint-disable-next-line 
   }, [id, days, currency]);
+  //fetch coinlist from coingecko api 
   const [post, setPost] = useState([]);
   useEffect(() => {
     axios.get(CoinList()).then((response) => {
       setPost(response.data);
     });
   }, []);
-
+//take id of the coins
   const handleId = (e) => {
     setId(Array.isArray(e) ? e.map((x) => x.value) : []);
   };
-
+//select line chart as default
   const [chartType, setChartType] = useState("Line");
   const handleChart = (e) => {
     setChartType(e.target.value);
@@ -83,9 +81,7 @@ const Graph = () => {
     inputField: { width: "14vw", borderRadius: "10px", border: "none" },
     searchBox: { border: "none" },
   };
-
-  // useEffect(() => {}, []);
-  // console.log("chart", chart);
+//For functionality of buttons to change days
   function oneDay() {
     setDays((prevDays) => 1);
   }
@@ -101,6 +97,7 @@ const Graph = () => {
   function oneYear() {
     setDays((prevDays) => 365);
   }
+  //data point decimation
   const decimation = {
     enabled: true,
     algorithm: "lttb ",
@@ -146,7 +143,7 @@ const Graph = () => {
         <button className="flex items-center hover:shadow-xl hover:border-b-2 transform transition-transform hover:scale-110 hover:border-blue-700 rounded-lg  text-black w-fit p-1">
           <BsFillCalendarWeekFill />
         </button>
-
+{/* Implement multiselect imported from library */}
         <Multiselect
           className="rounded-lg hover:shadow-xl"
           showCheckbox
@@ -189,7 +186,6 @@ const Graph = () => {
               data={{
                 labels: chart.prices?.map((chartMap) => {
                   let date = new Date(chartMap[0]);
-                  // let dateMonth = new Date(chartMap[0]).toLocaleDateString('en-us',{month:"short",year:'numeric'})
                   let time = `${date.getHours()}:00`;
                   return days === 1 ? time : date.toLocaleDateString();
                 }),
@@ -220,7 +216,6 @@ const Graph = () => {
                     ticks: {
                       source: "auto",
                       autoSkip: false,
-                      // maxRotation: 0,
                     },
                   },
                 },
@@ -256,7 +251,6 @@ const Graph = () => {
                       return chartMap[options[0].id];
                     }),
                     barThickness: 1,
-                    // barPercentage:0.1,
                   },
                 ],
               }}
@@ -293,7 +287,6 @@ const Graph = () => {
                 datasets: [
                   {
                     id: 1,
-                    // borderColor: "red",
                     backgroundColor: "red",
                     label: `Price during Past ${days} ${
                       days !== 1 ? "Days" : "Day"
@@ -324,6 +317,7 @@ const Graph = () => {
                 },
               }}
             />
+            // else show nothing
           ) : (
             <div />
           )}

@@ -12,6 +12,7 @@ function Exchange() {
   const [amountInbaseCurrency, setAmountInbaseCurrency] = useState(true);
 
   let to, from;
+  //Allows user to input currency in any field
   if (amountInbaseCurrency) {
     from = amount;
     to = amount * exchangeRate;
@@ -21,6 +22,7 @@ function Exchange() {
   }
 
   useEffect(() => {
+    // fetching from currency converter api 
     fetch(url)
       .then((res) => res.json())
       .then((data) => {

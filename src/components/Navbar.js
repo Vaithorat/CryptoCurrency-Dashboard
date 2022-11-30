@@ -1,7 +1,8 @@
-import { React, useState } from "react";
+import { React } from "react";
 import { CryptoState } from "../APIs/CryptoContext";
 
 export default function Navbar() {
+  //select currency from dropdown
   const handleChange = (e) => {
     setCurrency(e.target.value);
   };
