@@ -1,7 +1,10 @@
 import { React } from "react";
 import { CryptoState } from "../APIs/CryptoContext";
+import { toggleDarkMode } from "../features/darkModeSlice";
+import {useSelector} from "react-redux"
 
 export default function Navbar() {
+  const {mode} = useSelector((state)=>state.darkMode)
   //select currency from dropdown
   const handleChange = (e) => {
     setCurrency(e.target.value);
@@ -10,12 +13,12 @@ export default function Navbar() {
   const { currency,setCurrency } = CryptoState();
   return (
     <>
-      <div className="flex justify-between pb-4 pt-5">
+      <div  className="flex justify-between pb-4 pt-5">
         <div className="flex items-center ml-8">
           <label htmlFor="currency" className="sr-only">
             Currency
           </label>
-          <select
+          <select style={{background:mode? "#121212":"white"}}
             id="currency"
             name="currency"
             onChange={handleChange}
@@ -28,12 +31,12 @@ export default function Navbar() {
         </div>
         <form>
           <label
-            htmlFor="default-search"
+            htmlFor="default-search" 
             className=" mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300 "
           >
             Search
           </label>
-          <div className="relative">
+          <div  className="relative">
             <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
               <svg
                 aria-hidden="true"
@@ -57,6 +60,7 @@ export default function Navbar() {
               className="p-4 pl-10 w-full h-10 text-sm  text-gray-900 bg-gray-50 rounded-lg border-2 border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search by Coin"
               required=""
+              style={{background:mode? "#121212":"white"}}
             />
             <button
               type="submit"

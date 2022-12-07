@@ -5,12 +5,14 @@ import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import Portfolio from "./components/Portfolio";
 import Sidebar from "./components/Sidebar";
+import {useSelector} from "react-redux"
 
 function App() {
+  const {mode} = useSelector((state)=>state.darkMode)
   return (
     <>
       <Header />
-      <div id="App" className="flex overflow-hidden">
+      <div style={{background:mode? "#121212":"white", color:mode? "white":"#121212" ,height:"fit-screen"}} id="App" className="flex overflow-hidden">
         <div id="main" className="col-span-3 ">
           <Navbar />
           <Graph />

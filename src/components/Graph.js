@@ -8,7 +8,8 @@ import { BsFillCalendarWeekFill } from "react-icons/bs";
 import { CoinList } from "../APIs/api";
 import { Multiselect } from "multiselect-react-dropdown";
 import { CryptoState } from "../APIs/CryptoContext";
-
+import { useSelector, useDispatch } from "react-redux";
+import { toggleDarkMode } from "../features/darkModeSlice";
 //show spinner when content is not loaded
 export function Spinner() {
   return (
@@ -19,7 +20,8 @@ export function Spinner() {
 }
 
 const Graph = () => {
-  const { currency,setCurrency } = CryptoState();
+  const { mode } = useSelector((state) => state.darkMode);
+  const { currency, setCurrency } = CryptoState();
   //list of currencies the graph is available for
   const options = [
     { value: `Bitcoin`, label: `bitcoin`, id: 1 },
@@ -43,33 +45,33 @@ const Graph = () => {
     setId(options[selectedItem.id].label);
   }
   const [id, setId] = useState(options[0].label);
-//show show
+  //show show
   const [chart, setChart] = useState();
   //select days as 1 by default
   const [days, setDays] = useState(1);
   //to select currency from dropdown
 
- //fetch chart from coingecko api
+  //fetch chart from coingecko api
   const fetchChart = async () => {
     const { data } = await axios.get(HistoricalChart(id, days, currency));
     setChart(data);
   };
   useEffect(() => {
     fetchChart();
-  // eslint-disable-next-line 
+    // eslint-disable-next-line
   }, [id, days, currency]);
-  //fetch coinlist from coingecko api 
+  //fetch coinlist from coingecko api
   const [post, setPost] = useState([]);
   useEffect(() => {
     axios.get(CoinList()).then((response) => {
       setPost(response.data);
     });
   }, []);
-//take id of the coins
+  //take id of the coins
   const handleId = (e) => {
     setId(Array.isArray(e) ? e.map((x) => x.value) : []);
   };
-//select line chart as default
+  //select line chart as default
   const [chartType, setChartType] = useState("Line");
   const handleChart = (e) => {
     setChartType(e.target.value);
@@ -77,11 +79,11 @@ const Graph = () => {
   // console.log("chart", chartType);
 
   const styles = {
-    multiselectContainer: { width: "15vw", borderRadius: "20px" },
-    inputField: { width: "14vw", borderRadius: "10px", border: "none" },
-    searchBox: { border: "none" },
+    multiselectContainer: { color:"#121212", width: "21vw", borderRadius: "20px" },
+    inputField: {color:mode? "white":"#121212", width: "10vw", borderRadius: "10px", border: "none" },
+    searchBox: { border: "none"}
   };
-//For functionality of buttons to change days
+  //For functionality of buttons to change days
   function oneDay() {
     setDays((prevDays) => 1);
   }
@@ -109,6 +111,7 @@ const Graph = () => {
           value={1}
           className="flex items-center hover:shadow-xl hover:border-b-2 transform transition-transform hover:scale-110 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
           onClick={oneDay}
+          style={{ color: mode ? "white" : "black" }}
         >
           1 Day
         </button>
@@ -116,6 +119,7 @@ const Graph = () => {
           value={7}
           onClick={oneWeek}
           className="flex items-center hover:shadow-xl hover:border-b-2 transform transition-transform hover:scale-110 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
+          style={{ color: mode ? "white" : "black" }}
         >
           1 Week
         </button>
@@ -123,6 +127,7 @@ const Graph = () => {
           value={30}
           onClick={oneMonth}
           className="flex items-center hover:shadow-xl hover:border-b-2 transform transition-transform hover:scale-110 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
+          style={{ color: mode ? "white" : "black" }}
         >
           1 Month
         </button>
@@ -130,6 +135,7 @@ const Graph = () => {
           value={6}
           onClick={sixMonths}
           className="flex items-center hover:shadow-xl hover:border-b-2 transform transition-transform hover:scale-110 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
+          style={{ color: mode ? "white" : "black" }}
         >
           6 Months
         </button>
@@ -137,13 +143,17 @@ const Graph = () => {
           value={365}
           onClick={oneYear}
           className="flex items-center hover:shadow-xl hover:border-b-2 transform transition-transform hover:scale-110 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
+          style={{ color: mode ? "white" : "black" }}
         >
           1 Year
         </button>
-        <button className="flex items-center hover:shadow-xl hover:border-b-2 transform transition-transform hover:scale-110 hover:border-blue-700 rounded-lg  text-black w-fit p-1">
+        <button
+          style={{ color: mode ? "white" : "black" }}
+          className="flex items-center hover:shadow-xl hover:border-b-2 transform transition-transform hover:scale-110 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
+        >
           <BsFillCalendarWeekFill />
         </button>
-{/* Implement multiselect imported from library */}
+        {/* Implement multiselect imported from library */}
         <Multiselect
           className="rounded-lg hover:shadow-xl"
           showCheckbox
@@ -167,6 +177,10 @@ const Graph = () => {
             name="chartType"
             onChange={handleChart}
             value={chartType}
+            style={{
+              color: mode ? "white" : "#121212",
+              background: mode ? "#121212" : "white",
+            }}
             className="bg-white w-fit h-10  text-sm font-semibold rounded-md transform transition-transform hover:scale-105 hover:shadow-lg"
           >
             <option value="Line">Line Chart</option>
@@ -198,7 +212,7 @@ const Graph = () => {
                       days !== 1 ? "Days" : "Day"
                     } in USD`,
                     data: chart.prices.map((chartMap) => {
-                      return chartMap[(options[0].id)];
+                      return chartMap[options[0].id];
                     }),
                   },
                 ],
@@ -276,31 +290,31 @@ const Graph = () => {
             />
           ) : chartType === "BarVer" ? (
             <Bar
-            height={500}
-            datasetIdKey="id"
-            data={{
-              labels: chart.prices?.map((chartMap) => {
-                let date = new Date(chartMap[0]);
-                let time = `${date.getHours()}:00`;
-                return days === 1 ? time : date.toLocaleDateString();
-              }),
-              datasets: [
-                {
-                  id: 1,
-                  backgroundColor: "red",
-                  label: `Price during Past ${days} ${
-                    days !== 1 ? "Days" : "Day"
-                  } in USD`,
-                  data: chart.prices.map((chartMap) => {
-                    return chartMap[options[0].id];
-                  }),
-                },
-              ],
-            }}
-            options={{
-              scales: {
-                y: {
-                  ticks: {
+              height={500}
+              datasetIdKey="id"
+              data={{
+                labels: chart.prices?.map((chartMap) => {
+                  let date = new Date(chartMap[0]);
+                  let time = `${date.getHours()}:00`;
+                  return days === 1 ? time : date.toLocaleDateString();
+                }),
+                datasets: [
+                  {
+                    id: 1,
+                    backgroundColor: "red",
+                    label: `Price during Past ${days} ${
+                      days !== 1 ? "Days" : "Day"
+                    } in USD`,
+                    data: chart.prices.map((chartMap) => {
+                      return chartMap[options[0].id];
+                    }),
+                  },
+                ],
+              }}
+              options={{
+                scales: {
+                  y: {
+                    ticks: {
                       source: "auto",
                       autoSkip: true,
                       maxRotation: 0,
@@ -316,11 +330,11 @@ const Graph = () => {
                   },
                 },
               }}
-              />
-              // else show nothing
-              ) : (
-                <div />
-                )}
+            />
+          ) : (
+            // else show nothing
+            <div />
+          )}
         </div>
       )}
     </div>

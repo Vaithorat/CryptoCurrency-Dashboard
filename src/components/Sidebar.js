@@ -4,8 +4,11 @@ import { TrendingCoins } from "../APIs/api";
 import { CryptoState } from "../APIs/CryptoContext";
 import Coin from "./Coin";
 import { Spinner } from "./Graph";
+import {useSelector} from "react-redux"
+
 
 const Sidebar = () => {
+  const {mode} = useSelector((state)=>state.darkMode)
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(false);
   const { currency,symbol } = CryptoState();
@@ -24,7 +27,7 @@ const Sidebar = () => {
 //convert coin names into lowercase to allow effective usability
   const filteredCoins = coins.filter((coin) => coin.name.toLowerCase());
   return (
-    <div className="flex-col border-2 rounded-lg mx-4 mt-4 flex overflow-y-scroll  no-scrollbar" id="sidebar">
+    <div style={{background:mode? "#121212":"white", color:mode? "white":"#121212"}} className="flex-col border-2 rounded-lg mx-4 mt-4 flex overflow-y-scroll  no-scrollbar" id="sidebar">
       <h1 className="pt-5 ml-6 text-4xl font-bold z-10 ">
         Cryptocurrency prices by market cap
       </h1>

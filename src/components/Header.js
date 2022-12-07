@@ -1,31 +1,26 @@
 import React from "react";
-import { useState } from 'react';
-import { DarkModeToggle } from '@anatoliygatt/dark-mode-toggle';
+import { useSelector, useDispatch } from "react-redux";
+import { toggleDarkMode } from "../features/darkModeSlice";
+import DarkModeToggle from "react-dark-mode-toggle";
 
 const Header = () => {
-  const [mode, setMode] = useState('dark');
+  const { mode } = useSelector((state) => state.darkMode);
+  const dispatch = useDispatch();
+
   return (
-    <div className="w-full shadow-lg flex justify-between">
+    <div
+      style={{ background: mode ? "#121212" : "white" }}
+      className="w-full shadow-lg flex justify-between"
+    >
       <div className="w-20 mx-10 py-2 flex ">
         <img src="./logoAlma.png" alt="" />
       </div>
       <DarkModeToggle
-      mode={mode}
-      dark="Dark"
-      light="Light"
-      size="sm"
-      inactiveTrackColor="#e2e8f0"
-      inactiveTrackColorOnHover="#f8fafc"
-      inactiveTrackColorOnActive="#cbd5e1"
-      activeTrackColor="#334155"
-      activeTrackColorOnHover="#1e293b"
-      activeTrackColorOnActive="#0f172a"
-      inactiveThumbColor="#1e293b"
-      activeThumbColor="#e2e8f0"
-      onChange={(mode) => {
-        setMode(mode);
-      }}
-    />
+        className="mr-12 mt-2"
+        onChange={() => dispatch(toggleDarkMode())}
+        checked={mode}
+        size={50}
+      />
     </div>
   );
 };
