@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@anatoliygatt/dark-mode-toggle": "^1.0.0",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@headlessui/react": "^1.7.4",
     "@heroicons/react": "^2.0.13",
     "@reduxjs/toolkit": "^1.9.0",

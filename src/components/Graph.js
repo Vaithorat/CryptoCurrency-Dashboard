@@ -276,31 +276,31 @@ const Graph = () => {
             />
           ) : chartType === "BarVer" ? (
             <Bar
-              height={500}
-              datasetIdKey="id"
-              data={{
-                labels: chart.prices?.map((chartMap) => {
-                  let date = new Date(chartMap[0]);
-                  let time = `${date.getHours()}:00`;
-                  return days === 1 ? time : date.toLocaleDateString();
-                }),
-                datasets: [
-                  {
-                    id: 1,
-                    backgroundColor: "red",
-                    label: `Price during Past ${days} ${
-                      days !== 1 ? "Days" : "Day"
-                    } in USD`,
-                    data: chart.prices.map((chartMap) => {
-                      return chartMap[options[0].id];
-                    }),
-                  },
-                ],
-              }}
-              options={{
-                scales: {
-                  y: {
-                    ticks: {
+            height={500}
+            datasetIdKey="id"
+            data={{
+              labels: chart.prices?.map((chartMap) => {
+                let date = new Date(chartMap[0]);
+                let time = `${date.getHours()}:00`;
+                return days === 1 ? time : date.toLocaleDateString();
+              }),
+              datasets: [
+                {
+                  id: 1,
+                  backgroundColor: "red",
+                  label: `Price during Past ${days} ${
+                    days !== 1 ? "Days" : "Day"
+                  } in USD`,
+                  data: chart.prices.map((chartMap) => {
+                    return chartMap[options[0].id];
+                  }),
+                },
+              ],
+            }}
+            options={{
+              scales: {
+                y: {
+                  ticks: {
                       source: "auto",
                       autoSkip: true,
                       maxRotation: 0,
@@ -316,11 +316,11 @@ const Graph = () => {
                   },
                 },
               }}
-            />
-            // else show nothing
-          ) : (
-            <div />
-          )}
+              />
+              // else show nothing
+              ) : (
+                <div />
+                )}
         </div>
       )}
     </div>

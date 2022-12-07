@@ -9,9 +9,9 @@ const Coin = ({ name, marketcap, image, priceChange }) => {
         <div className="flex items-center pr-6 min-w-min h-fit ">
           <img src={image} alt="crypto" className="h-8 w-fit px-2 hover:drop-shadow-lg  " />
           <div className=" flex-col  mt-2 ">
-            <h1 className="h-8 mr-2 text-base w-40 align-center mb-3">{name}</h1>
-            <p className=" gap-5 text-gray-500  ">
-              Mkt Cap: {marketcap.toLocaleString()}
+            <h1 className="h-8 mr-2 text-base w-40 align-center mb-3 pl-2" >{name}</h1>
+            <p className=" gap-5 text-gray-500 pl-2 ">
+              Market Cap: {marketcap.toLocaleString()}
             </p>
           </div>
         </div>
