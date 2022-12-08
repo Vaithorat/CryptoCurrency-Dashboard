@@ -13,7 +13,7 @@ export default function Navbar() {
   const { currency,setCurrency } = CryptoState();
   return (
     <>
-      <div  className="flex justify-between pb-4 pt-5">
+      <div  className="flex  pb-4 pt-5">
         <div className="flex items-center ml-8">
           <label htmlFor="currency" className="sr-only">
             Currency
@@ -23,7 +23,7 @@ export default function Navbar() {
             name="currency"
             onChange={handleChange}
             value={currency}
-            className="bg-white w-24 h-10  text-sm font-semibold rounded-md mr-2 transform transition-transform hover:scale-105"
+            className="bg-white w-fit h-fit  text-sm font-semibold rounded-md mr-2 transform transition-transform hover:scale-105"
           >
             <option value="USD">USD</option>
             <option value="INR">INR</option>
@@ -60,7 +60,7 @@ export default function Navbar() {
               className="p-4 pl-10 w-full h-10 text-sm  text-gray-900 bg-gray-50 rounded-lg border-2 border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search by Coin"
               required=""
-              style={{background:mode? "#121212":"white"}}
+              style={{background:mode? "#121212":"white", color:mode? "white":"#121212"}}
             />
             <button
               type="submit"

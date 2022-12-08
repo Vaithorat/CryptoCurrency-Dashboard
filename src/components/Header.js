@@ -15,6 +15,7 @@ const Header = () => {
       <div className="w-20 mx-10 py-2 flex ">
         <img src="./logoAlma.png" alt="" />
       </div>
+
       <DarkModeToggle
         className="mr-12 mt-2"
         onChange={() => dispatch(toggleDarkMode())}

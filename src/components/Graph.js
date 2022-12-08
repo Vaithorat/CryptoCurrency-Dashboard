@@ -50,16 +50,16 @@ const Graph = () => {
   //select days as 1 by default
   const [days, setDays] = useState(1);
   //to select currency from dropdown
-
   //fetch chart from coingecko api
   const fetchChart = async () => {
-    const { data } = await axios.get(HistoricalChart(id, days, currency));
+    const { data } = await axios.get(HistoricalChart(id, days, currency,interval));
     setChart(data);
   };
+  const [interval, setInterval] = useState([]);
   useEffect(() => {
     fetchChart();
     // eslint-disable-next-line
-  }, [id, days, currency]);
+  }, [id, days, currency,interval]);
   //fetch coinlist from coingecko api
   const [post, setPost] = useState([]);
   useEffect(() => {
@@ -77,36 +77,44 @@ const Graph = () => {
     setChartType(e.target.value);
   };
   // console.log("chart", chartType);
-
   const styles = {
-    multiselectContainer: { color:"#121212", width: "21vw", borderRadius: "20px" },
-    inputField: {color:mode? "white":"#121212", width: "10vw", borderRadius: "10px", border: "none" },
-    searchBox: { border: "none"}
+    multiselectContainer: {
+      color: "#121212",
+      width: "21vw",
+      borderRadius: "20px",
+    },
+    inputField: {
+      color: mode ? "white" : "#121212",
+      width: "10vw",
+      borderRadius: "10px",
+      border: "none",
+    },
+    searchBox: { border: "none" },
   };
   //For functionality of buttons to change days
   function oneDay() {
+    setInterval((prevInterval) => "hourly");
     setDays((prevDays) => 1);
   }
   function oneWeek() {
     setDays((prevDays) => 7);
+    setInterval((prevInterval) => "daily");
   }
   function oneMonth() {
     setDays((prevDays) => 30);
+    setInterval((prevInterval) => "daily");
   }
   function sixMonths() {
     setDays((prevDays) => 180);
+    setInterval((prevInterval) => "monthly");
   }
   function oneYear() {
     setDays((prevDays) => 365);
+    setInterval((prevInterval) => "yearly");
   }
-  //data point decimation
-  const decimation = {
-    enabled: true,
-    algorithm: "lttb ",
-  };
   return (
     <div className="px-8 w-full " id="main-graph">
-      <div className=" justify-center gap-10 flex w-full items-center  ">
+      <div className=" justify-center gap-6 flex w-full items-center  ">
         <button
           value={1}
           className="flex items-center hover:shadow-xl hover:border-b-2 transform transition-transform hover:scale-110 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
@@ -208,6 +216,7 @@ const Graph = () => {
                     spanGaps: true,
                     id: 1,
                     borderColor: "red",
+                    backgroundColor:"red",
                     label: `Price during Past ${days} ${
                       days !== 1 ? "Days" : "Day"
                     } in USD`,
@@ -258,13 +267,13 @@ const Graph = () => {
                   {
                     id: 1,
                     borderColor: "red",
+                    backgroundColor:"red",
                     label: `Price during Past ${days} ${
                       days !== 1 ? "Days" : "Day"
                     } in USD`,
                     data: chart.prices.map((chartMap) => {
                       return chartMap[options[0].id];
                     }),
-                    barThickness: 1,
                   },
                 ],
               }}
@@ -283,7 +292,7 @@ const Graph = () => {
                 responsive: true,
                 elements: {
                   bar: {
-                    borderWidth: 1,
+                    barThickness: 50,
                   },
                 },
               }}
@@ -301,7 +310,8 @@ const Graph = () => {
                 datasets: [
                   {
                     id: 1,
-                    backgroundColor: "red",
+                    borderColor: "red",
+                    backgroundColor:"red",
                     label: `Price during Past ${days} ${
                       days !== 1 ? "Days" : "Day"
                     } in USD`,
@@ -326,7 +336,7 @@ const Graph = () => {
                 responsive: true,
                 elements: {
                   bar: {
-                    borderWidth: 1,
+                    barThickness: 50,
                   },
                 },
               }}
