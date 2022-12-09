@@ -53,8 +53,9 @@ function Exchange() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center border-2 ml-2 rounded-lg ">
-      <h1 className="text-2xl font-bold">Exchange Currencies</h1>
+    
+    <div className="flex flex-col justify-center items-center border-2 ml-2 rounded-lg flex-shrink">
+      <h1 className=" text-2xl font-bold">Exchange Currencies</h1>
       <Currency
       value={1}
         exchangeOptions={exchangeOptions}

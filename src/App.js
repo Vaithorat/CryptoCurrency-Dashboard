@@ -12,16 +12,16 @@ function App() {
   return (
     <>
       <Header />
-      <div style={{background:mode? "#121212":"white", color:mode? "white":"#121212" ,height:"fit-screen"}} id="App" className="flex overflow-hidden">
+      <div style={{background:mode? "#121212":"white", color:mode? "white":"#121212" ,height:"fit-screen"}} id="App" className="sm:flex-col md:flex-col lg:flex-col flex overflow-hidden">
         <div id="main" className="col-span-3 ">
           <Navbar />
           <Graph />
-          <div id="container" className="flex w-full pt-2 pr-2">
+          <div id="container" className="flex lg:w-full pt-2 pr-2 h-75">
             <Portfolio />
             <Exchange />
           </div>
         </div>
-        <div className="flex flex-col w-full h-75">
+        <div className="flex-col w-full h-75">
           <Sidebar />
         </div>
       </div>

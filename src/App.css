@@ -2,36 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 @layer utilities {
-    /* Chrome, Safari and Opera */
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 
-    .no-scrollbar {
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
-    }
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }
-*{
-    margin: 0;padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-#default-search{
-width: 60vw;
+#default-search {
+  width: 60vw;
 }
-#nav{
-    padding-top: 2rem;
-    padding-left: 2rem;
+#nav {
+  padding-top: 2rem;
+  padding-left: 2rem;
 }
-#top{
-    margin-left: 2rem;
-    height:30.8vh;
+#top {
+  margin-left: 2rem;
+  height: 30.8vh;
 }
-#sidebar{
-    height: 94.7vh;
-    width: fit-content;
-    
+#sidebar {
+  height: 94.7vh;
 }
-#exchange{
-    height: 28vh;
+#exchange {
+  height: 28vh;
 }

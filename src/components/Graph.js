@@ -52,14 +52,16 @@ const Graph = () => {
   //to select currency from dropdown
   //fetch chart from coingecko api
   const fetchChart = async () => {
-    const { data } = await axios.get(HistoricalChart(id, days, currency,interval));
+    const { data } = await axios.get(
+      HistoricalChart(id, days, currency, interval)
+    );
     setChart(data);
   };
   const [interval, setInterval] = useState([]);
   useEffect(() => {
     fetchChart();
     // eslint-disable-next-line
-  }, [id, days, currency,interval]);
+  }, [id, days, currency, interval]);
   //fetch coinlist from coingecko api
   const [post, setPost] = useState([]);
   useEffect(() => {
@@ -80,7 +82,8 @@ const Graph = () => {
   const styles = {
     multiselectContainer: {
       color: "#121212",
-      width: "21vw",
+      minWidth: "21",
+      maxWidth: "34",
       borderRadius: "20px",
     },
     inputField: {
@@ -113,8 +116,8 @@ const Graph = () => {
     setInterval((prevInterval) => "yearly");
   }
   return (
-    <div className="px-8 w-full " id="main-graph">
-      <div className=" justify-center gap-6 flex w-full items-center  ">
+    <div className="px-8 xs:w-full sm:w-full md:w-full lg:w-fit lg:gap-2" id="main-graph">
+      <div className=" justify-start  gap-6 flex w-full items-center xs:text-xs sm:text-xs md:text-sm text-md ">
         <button
           value={1}
           className="flex items-center hover:shadow-xl hover:border-b-2 transform transition-transform hover:scale-110 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
@@ -163,7 +166,7 @@ const Graph = () => {
         </button>
         {/* Implement multiselect imported from library */}
         <Multiselect
-          className="rounded-lg hover:shadow-xl"
+          className="rounded-lg hover:shadow-xl "
           showCheckbox
           onSelect={onSelect}
           selectionLimit={2}
@@ -176,8 +179,8 @@ const Graph = () => {
           style={styles}
         />
 
-        <div className="flex items-center ml-8">
-          <label htmlFor="chartType" className="sr-only">
+        <div className="flex items-center md:w-full ml-8 ">
+          <label htmlFor="chartType" className="sr-only ">
             Chart Type
           </label>
           <select
@@ -189,7 +192,7 @@ const Graph = () => {
               color: mode ? "white" : "#121212",
               background: mode ? "#121212" : "white",
             }}
-            className="bg-white w-fit h-10  text-sm font-semibold rounded-md transform transition-transform hover:scale-105 hover:shadow-lg"
+            className="bg-white w-42 md:w-30 sm:w-24 h-10 xs:text-xs sm:text-sm md:text-sm  font-semibold rounded-md transform transition-transform hover:scale-105 hover:shadow-lg"
           >
             <option value="Line">Line Chart</option>
             <option value="Bar">Bar Chart Horizontal</option>
@@ -216,7 +219,7 @@ const Graph = () => {
                     spanGaps: true,
                     id: 1,
                     borderColor: "red",
-                    backgroundColor:"red",
+                    backgroundColor: "red",
                     label: `Price during Past ${days} ${
                       days !== 1 ? "Days" : "Day"
                     } in USD`,
@@ -267,7 +270,7 @@ const Graph = () => {
                   {
                     id: 1,
                     borderColor: "red",
-                    backgroundColor:"red",
+                    backgroundColor: "red",
                     label: `Price during Past ${days} ${
                       days !== 1 ? "Days" : "Day"
                     } in USD`,
@@ -311,7 +314,7 @@ const Graph = () => {
                   {
                     id: 1,
                     borderColor: "red",
-                    backgroundColor:"red",
+                    backgroundColor: "red",
                     label: `Price during Past ${days} ${
                       days !== 1 ? "Days" : "Day"
                     } in USD`,
