@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Currency from "./Currency";
 
-const url = "https://api.exchangerate.host/latest";
+const url = "https://api.coingecko.com/api/v3/exchange_rates";
 
 function Exchange() {
   const [exchangeOptions, setExchangeOptions] = useState([]);
   const [baseCurrency, setBaseCurrency] = useState();
   const [newCurrency, setNewCurrency] = useState();
   const [exchangeRate, setExchangeRate] = useState();
-  const [amount, setAmount] = useState();
+  const [amount, setAmount] = useState(1);
   const [amountInbaseCurrency, setAmountInbaseCurrency] = useState(true);
-
   let to, from;
   //Allows user to input currency in any field
   if (amountInbaseCurrency) {
@@ -22,15 +21,15 @@ function Exchange() {
   }
 
   useEffect(() => {
-    // fetching from currency converter api 
+    // fetching from currency converter api
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        const firstCurrency = Object.keys(data.rates)[0];
-        setExchangeOptions([data.base, ...Object.keys(data.rates)]);
-        setBaseCurrency(data.base);
+        const firstCurrency = Object.keys(data.rates)[1];
+        setExchangeOptions([...Object.keys(data.rates)]);
+        setBaseCurrency(Object.keys(data.rates)[0]);
         setNewCurrency(firstCurrency);
-        setExchangeRate(data.rates[firstCurrency]);
+        setExchangeRate(data.rates[firstCurrency].value);
       });
   }, []);
 
@@ -38,7 +37,7 @@ function Exchange() {
     if (baseCurrency != null && newCurrency != null) {
       fetch(`${url}?base=${baseCurrency}&symbols=${newCurrency}`)
         .then((res) => res.json())
-        .then((data) => setExchangeRate(data.rates[newCurrency]));
+        .then((data) => setExchangeRate(data.rates[newCurrency].value));
     }
   }, [baseCurrency, newCurrency]);
 
@@ -53,11 +52,10 @@ function Exchange() {
   }
 
   return (
-    
-    <div className="flex flex-col justify-center items-center border-2 ml-2 rounded-lg flex-shrink">
+    <div className="w-fit flex flex-col justify-center items-center border-2 ml-2 rounded-lg flex-shrink">
       <h1 className=" text-2xl font-bold">Exchange Currencies</h1>
       <Currency
-      value={1}
+        value={1}
         exchangeOptions={exchangeOptions}
         selectedCurrency={baseCurrency}
         onChangeCurrency={(e) => setBaseCurrency(e.target.value)}
@@ -66,7 +64,7 @@ function Exchange() {
       />
 
       <Currency
-      value={2}
+        value={2}
         exchangeOptions={exchangeOptions}
         selectedCurrency={newCurrency}
         onChangeCurrency={(e) => setNewCurrency(e.target.value)}

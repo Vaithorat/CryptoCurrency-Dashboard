@@ -117,7 +117,7 @@ const Graph = () => {
   }
   return (
     <div className="px-8 xs:w-full sm:w-full md:w-full lg:w-fit lg:gap-2" id="main-graph">
-      <div className=" justify-start  gap-6 flex w-full items-center xs:text-xs sm:text-xs md:text-sm text-md ">
+      <div className="xl:justify-evenly md:justify-around justify-start  gap-6 flex w-full items-center xs:text-xs sm:text-xs md:text-sm text-md ">
         <button
           value={1}
           className="flex items-center hover:shadow-xl hover:border-b-2 transform transition-transform hover:scale-110 hover:border-blue-700 rounded-lg  text-black w-fit p-1"
