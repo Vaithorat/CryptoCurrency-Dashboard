@@ -37,10 +37,10 @@ const options = {
 };
 const Portfolio = () => {
   return (
-    <div className="w-fit border-2 rounded-lg p-2 flex-shrink max-w-xl" id="top">
-      <div className="flex justify-start ">
+    <div className="w-full h-24 border-2 rounded-lg p-2 flex-shrink max-w-xl" id="top">
+      <div className="flex justify-start mx-2 ">
         <div id="portfolio">Portfolio</div>
-        <div className="transform transition-transform flex-shrink hover:scale-105 pt-11">
+        <div className="transform transition-transform flex-shrink hover:scale-105 pt-11 h-2">
           <Pie data={data} options={options} />
         </div>
         <div>Total Value <strong>$1000</strong></div>

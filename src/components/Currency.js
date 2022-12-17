@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 export default function Currency(props) {
   const {
@@ -9,6 +10,7 @@ export default function Currency(props) {
     value,
     amount
   } = props
+  const { mode } = useSelector((state) => state.darkMode);
   return (
     <div className='flex justify-between sm:px-4 items-center gap-12 px-16 w-full lg:gap-12 sm:gap-4 md:gap-8 mt-8  '>
       {value===2
@@ -19,7 +21,10 @@ export default function Currency(props) {
             <option key={option} value={option}>{option}</option>
             ))}
       </select>
-            <input  type="number" className="w-full rounded-lg transform transition-transform hover:scale-105 hover:shadow-lg" value={amount} onChange={onChangeAmount} />
+            <input style={{
+                  background: mode ? "#121212" : "white",
+                  color: mode ? "white" : "#121212",
+                }} type="number" className="text-black w-full rounded-lg transform transition-transform hover:scale-105 hover:shadow-lg" value={String(amount)} onChange={onChangeAmount} />
     </div>
   )
 }

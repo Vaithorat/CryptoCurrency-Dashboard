@@ -16,7 +16,7 @@ function App(props) {
         <div id="main" className="col-span-3 ">
           <Navbar />
           <Graph />
-          <div id="container" className="flex lg:w-full xl:w-full pt-2 pr-2 h-75">
+          <div id="container" className="flex lg:w-full xl:w-full pt-2 pr-2 h-75 pl-12 sm:pl-2 md:pl-4 lg:pl-6">
             <Portfolio />
             <Exchange />
           </div>

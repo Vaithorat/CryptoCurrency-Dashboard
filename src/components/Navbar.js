@@ -1,6 +1,5 @@
 import { React } from "react";
 import { CryptoState } from "../APIs/CryptoContext";
-import { toggleDarkMode } from "../features/darkModeSlice";
 import { useSelector } from "react-redux";
 
 export default function Navbar() {

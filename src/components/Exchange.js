@@ -52,7 +52,7 @@ function Exchange() {
   }
 
   return (
-    <div className="w-fit flex flex-col justify-center items-center border-2 ml-2 rounded-lg flex-shrink">
+    <div id="exchange" className="w-fit flex flex-col justify-center items-center border-2 ml-2 rounded-lg flex-shrink">
       <h1 className=" text-2xl font-bold">Exchange Currencies</h1>
       <Currency
         value={1}

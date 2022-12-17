@@ -8,8 +8,7 @@ import { BsFillCalendarWeekFill } from "react-icons/bs";
 import { CoinList } from "../APIs/api";
 import { Multiselect } from "multiselect-react-dropdown";
 import { CryptoState } from "../APIs/CryptoContext";
-import { useSelector, useDispatch } from "react-redux";
-import { toggleDarkMode } from "../features/darkModeSlice";
+import { useSelector } from "react-redux";
 //show spinner when content is not loaded
 export function Spinner() {
   return (
@@ -21,7 +20,7 @@ export function Spinner() {
 
 const Graph = () => {
   const { mode } = useSelector((state) => state.darkMode);
-  const { currency, setCurrency } = CryptoState();
+  const { currency } = CryptoState();
   //list of currencies the graph is available for
   const options = [
     { value: `Bitcoin`, label: `bitcoin`, id: 1 },
@@ -81,16 +80,23 @@ const Graph = () => {
   // console.log("chart", chartType);
   const styles = {
     multiselectContainer: {
-      color: "#121212",
-      minWidth: "21",
-      maxWidth: "34",
+      width: "14vw",
       borderRadius: "20px",
+      background: mode ? "#121212" : "white",
+      color: mode ? " white" : "#121212",
     },
-    inputField: {
+    optionContainer: {
+      background: mode ? "#121212" : "white",
       color: mode ? "white" : "#121212",
-      width: "10vw",
-      borderRadius: "10px",
-      border: "none",
+
+    },
+    selectedOptionContainer: {
+      background: mode ? "#121212" : "white",
+      color: mode ? "white" : "#121212",
+    },   
+    chips:{
+      fontSize: "16px",
+      fontWeight:"bold"
     },
     searchBox: { border: "none" },
   };
@@ -116,7 +122,10 @@ const Graph = () => {
     setInterval((prevInterval) => "yearly");
   }
   return (
-    <div className="px-8 xs:w-full sm:w-full md:w-full lg:w-fit lg:gap-2" id="main-graph">
+    <div
+      className="px-8 xs:w-full sm:w-full md:w-full lg:w-fit lg:gap-2"
+      id="main-graph"
+    >
       <div className="xl:justify-evenly md:justify-around justify-start  gap-6 flex w-full items-center xs:text-xs sm:text-xs md:text-sm text-md ">
         <button
           value={1}
@@ -167,9 +176,10 @@ const Graph = () => {
         {/* Implement multiselect imported from library */}
         <Multiselect
           className="rounded-lg hover:shadow-xl "
-          showCheckbox
+          closeOnSelect={true}
+          // showCheckbox
           onSelect={onSelect}
-          selectionLimit={2}
+          singleSelect={true}
           placeholder="Select Cryptocurrency"
           options={options}
           displayValue="value"
@@ -222,7 +232,7 @@ const Graph = () => {
                     backgroundColor: "red",
                     label: `Price during Past ${days} ${
                       days !== 1 ? "Days" : "Day"
-                    } in USD`,
+                    } in ${currency}`,
                     data: chart.prices.map((chartMap) => {
                       return chartMap[options[0].id];
                     }),
