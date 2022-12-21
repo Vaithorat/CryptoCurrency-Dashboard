@@ -1,70 +1,61 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Crypto Currency Dashboard Project
 
-## Available Scripts
+This dashboard provides information about your favourite Crypto Currencies, their trends and past prices in the form of a well organised graph including Line Chart as well as Bar Charts.
 
-In the project directory, you can run:
 
-### `npm start`
+## Demo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Insert gif or link to demo
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+https://drive.google.com/file/d/1sCMAkRZCmAM3rffh2YjGeifa9nLP-2V-/view?usp=sharing
+## Features
 
-### `npm test`
+- Light/dark mode toggle
+- Live previews
+- Fullscreen mode
+- Responsive
+- Chart types to choose from
+- Duration buttons allows you to choose from multiple duration timelines
+- Sidebar indicates profit/loss percentage on 24 hour basis
+- Crypto Exchange: allows users to convert different crypto currencies into other currencies
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+Install my-project with npm
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm install Cryptocurrency-Dashboard
+cd Cryptocurrency-Dashboard
+```
+    npm install react-redux
+    # or
+    yarn add react-redux
+```
+npm install axios
+```
+    yarn add react-chartjs-2 chart.js
+    # or
+    npm i react-chartjs-2 chart.js
+## Deployment
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The app has been deployed on 
+https://cryptodashboard-alma.netlify.com
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## FAQ
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### Search Bar doesn't work?
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Yes, I haven't been able to implement it yet
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### Is portfolio static?
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Yes, it contains static data of the market cap of top 3 coins
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Screenshots
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![App Screenshot](https://drive.google.com/file/d/1v3MOeSfeLinK6Edydkold-EVrynOgyBW/view?usp=sharing)
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![App Screenshot](https://drive.google.com/file/d/1kwuG0-vB1fCp6_KHPi_6CsppHSZUI31_/view?usp=sharing)

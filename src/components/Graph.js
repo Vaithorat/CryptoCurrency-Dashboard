@@ -48,7 +48,6 @@ const Graph = () => {
   const [chart, setChart] = useState();
   //select days as 1 by default
   const [days, setDays] = useState(1);
-  //to select currency from dropdown
   //fetch chart from coingecko api
   const fetchChart = async () => {
     const { data } = await axios.get(
@@ -88,7 +87,6 @@ const Graph = () => {
     optionContainer: {
       background: mode ? "#121212" : "white",
       color: mode ? "white" : "#121212",
-
     },
     selectedOptionContainer: {
       background: mode ? "#121212" : "white",
@@ -96,7 +94,7 @@ const Graph = () => {
     },   
     chips:{
       fontSize: "16px",
-      fontWeight:"bold"
+      fontWeight:"bold",
     },
     searchBox: { border: "none" },
   };
@@ -177,13 +175,12 @@ const Graph = () => {
         <Multiselect
           className="rounded-lg hover:shadow-xl "
           closeOnSelect={true}
-          // showCheckbox
           onSelect={onSelect}
           singleSelect={true}
           placeholder="Select Cryptocurrency"
           options={options}
           displayValue="value"
-          avoidHighlightFirstOption={true}
+          avoidHighlightFirstOption={false}
           value={options.filter((obj) => id.includes(obj.value))}
           onChange={handleId}
           style={styles}

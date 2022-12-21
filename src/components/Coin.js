@@ -2,7 +2,7 @@ import React from "react";
 import {TiArrowSortedDown, TiArrowSortedUp} from "react-icons/ti"
 
 //For coinlist that will appear in sidebar
-const Coin = ({ name, marketcap, image, priceChange }) => {
+const Coin = ({ name, marketcap=0, image, priceChange }) => {
   return (
     <div className=" flex justify-center border-2-gray-500">
       <div className="flex justify-between w-full mx-4 items-center h-full border-b-2 border-gray-200 w-80%  ">
